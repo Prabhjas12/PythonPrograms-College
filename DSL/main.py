@@ -1,11 +1,8 @@
 import re
-
-# Step 2: Create a Lexer
 def lexer(input_text):
     tokens = re.findall(r'\d+|\+|-|\*|/|\(|\)', input_text)
     return tokens
 
-# Step 3: Implement a Parser
 def parse_expression(tokens):
     if not tokens:
         return None
@@ -20,7 +17,7 @@ def parse_expression(tokens):
 
     def parse_factor():
         if tokens[0] == '(':
-            tokens.pop(0)  # Consume the opening parenthesis
+            tokens.pop(0) 
             expression = parse_expression(tokens)
             if tokens.pop(0) != ')':
                 raise SyntaxError("Expected closing parenthesis")
@@ -34,8 +31,6 @@ def parse_expression(tokens):
         right = parse_term()
         expression = (operator, expression, right)
     return expression
-
-# Step 5: Evaluate the AST
 def evaluate(ast):
     if isinstance(ast, int):
         return ast
@@ -50,8 +45,6 @@ def evaluate(ast):
         return evaluate(left) / evaluate(right)
     else:
         raise ValueError(f"Invalid operator: {operator}")
-
-# Main function
 def main():
     input_text = input("Enter an arithmetic expression: ")
     tokens = lexer(input_text)
